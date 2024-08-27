@@ -26,6 +26,7 @@ const detectCollision = (ws) => {
                 angleChange,
                 velocityChange,
                 collisionDetected: isCollision,
+                timestamp: Date.now(),
             });
 
             await sensorData.save();
