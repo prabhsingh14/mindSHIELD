@@ -1,25 +1,23 @@
 const mongoose = require('mongoose');
-const Helmet = require('./Helmet'); 
-const Location = require('./Location'); 
 
 const accidentSchema = new mongoose.Schema({
     accidentID: {
         type: String,
         required: true,
-        unique: true, // Ensure each accidentID is unique
+        unique: true, 
     },
     helmetID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Helmet',
-        required: true, // Ensures each accident entry is associated with a helmet
+        required: true, 
     },
     location: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Location', // Assuming you have a Location model
-        required: true, // Ensures each accident entry has a location
+        ref: 'Location', 
+        required: true, 
     },
     timestamp: {
-        type: Date, // Use Date type for storing date and time
+        type: Date, 
         required: true,
     },
     severity: {
@@ -29,5 +27,4 @@ const accidentSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-// Export the Accident model
 module.exports = mongoose.model('Accident', accidentSchema);
