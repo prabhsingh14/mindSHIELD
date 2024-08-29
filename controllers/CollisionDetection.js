@@ -1,10 +1,5 @@
 const Sensor = require("../models/Sensor");
-const Notification = require("../models/Notification");
-const Location = require("../models/Location");
-const Accident = require("../models/Accident");
-const { generateAccidentID } = require("../utils/AccidentID");
 const { emergencyResponse } = require("./EmergencyResponse");
-const determineSeverity = require("../utils/determineSeverity");
 
 // Add threshold to compare with the sensor data, to detect collision
 const angleChangeThreshold = 30; // degrees
@@ -44,41 +39,10 @@ const detectCollision = (ws) => {
             if (isCollision) {
                 setTimeout(async () => {
                     try {
-                        // Fetch the live location using locationId
-                        const location = await Location.findOne({ locationId });
-
                         // Call the emergency response function
                         await emergencyResponse(helmetId);
-
-                        // Save notification data
-                        const notification = new Notification({
-                            helmetId,
-                            notificationType: 'collision',
-                            status: 'sent',
-                            timestamp: Date.now(),
-                        });
-                        await notification.save();
-
-                        // Save accident data
-                        const accident = new Accident({
-                            accidentID: generateAccidentID(),
-                            helmetID: helmetId,
-                            location: location ? location._id : null, // Save location reference
-                            timestamp: Date.now(),
-                            severity: determineSeverity(angleChange, velocityChange),
-                        });
-                        await accident.save();
                     } catch (error) {
                         console.error("Error in sending emergency response: ", error);
-
-                        // Save notification data with failure status
-                        const notification = new Notification({
-                            helmetId,
-                            notificationType: 'collision',
-                            status: 'failed',
-                            timestamp: Date.now(),
-                        });
-                        await notification.save();
                     }
                 }, 2 * 60 * 1000);
             }
