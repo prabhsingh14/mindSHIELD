@@ -38,7 +38,7 @@ const detectCollision = (ws) => {
             if(isCollision){
                 setTimeout(async () => {
                     try{
-                        await emergencyResponse(sensorData);
+                        await emergencyResponse(helmetId);
                     } catch(error){
                         console.error("Error in sending emergency response: ", error);
                     }
