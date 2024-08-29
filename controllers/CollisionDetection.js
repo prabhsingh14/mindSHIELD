@@ -1,4 +1,5 @@
 const Sensor = require("../models/Sensor");
+const Location = require("../models/Location");
 const { emergencyResponse } = require("./EmergencyResponse");
 
 // Add threshold to compare with the sensor data, to detect collision
@@ -40,7 +41,11 @@ const detectCollision = (ws) => {
                 setTimeout(async () => {
                     try {
                         // Call the emergency response function
-                        await emergencyResponse(helmetId);
+                        const location = await Location.findOne({helmetID: helmetId}).sort({timestamp: -1});
+                        if (!location) {
+                            throw new Error("Location not found");
+                        }
+                        await emergencyResponse(helmetId, location.locationID);
                     } catch (error) {
                         console.error("Error in sending emergency response: ", error);
                     }
