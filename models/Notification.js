@@ -1,12 +1,6 @@
 const mongoose = require("mongoose");
 
 const notificationSchema = new mongoose.Schema({
-    notificationId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        unique: true,
-    },
-
     helmetId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
