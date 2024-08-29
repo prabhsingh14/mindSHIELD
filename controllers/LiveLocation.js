@@ -19,7 +19,8 @@ const liveLocation = (ws) => {
 
             ws.send(JSON.stringify({
                 success: true, 
-                message: "Live location saved successfully"
+                message: "Live location saved successfully",
+                locationID: locationId
             }));
         } catch(error){
             console.error("Error in saving live location: ", error);
