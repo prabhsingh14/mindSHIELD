@@ -35,7 +35,7 @@ const detectCollision = (ws) => {
             // Send the data back through WebSocket
             ws.send(JSON.stringify({ collisionDetected: isCollision }));
 
-            /* If collision is detected, wait for 2 minutes and then notify the emergency contacts - SMS and share live location
+            /* If collision is detected, wait for 1 minute and then notify the emergency contacts - SMS and share live location
             and store the required data in Accident and Notification models */
             if (isCollision) {
                 setTimeout(async () => {
