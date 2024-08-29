@@ -49,7 +49,7 @@ const detectCollision = (ws) => {
                     } catch (error) {
                         console.error("Error in sending emergency response: ", error);
                     }
-                }, 2 * 60 * 1000);
+                }, 1 * 60 * 1000);
             }
         } catch (error) {
             console.error("Error in detecting collision: ", error);
